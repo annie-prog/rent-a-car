@@ -8,7 +8,7 @@ namespace Data
     {      
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Car> Cars { get; set; }
-        public virtual DbSet<Rents> Request { get; set; }
+        public virtual DbSet<Rents> Rents { get; set; }
 
     }
     
