@@ -8,6 +8,13 @@ namespace Data.Entities
 {
     public class User
     {
+        public enum RoleEnum 
+        { 
+            User, 
+            Manager 
+        }
+
+
         public int Id { get; set; }
 
         public string Username { get; set; }
@@ -24,8 +31,6 @@ namespace Data.Entities
 
         public string Email { get; set; }
 
-        public int RoleId { get; set; }
-
-        public Role Role { get; set; }
+        public RoleEnum Role { get; set; }
     }
 }
