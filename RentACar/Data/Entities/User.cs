@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Data.Entities
 {
-    public class User
+    public class User : IdentityUser<string>
     {
         public enum RoleEnum 
         { 
@@ -14,8 +15,7 @@ namespace Data.Entities
             Manager 
         }
 
-
-        public int Id { get; set; }
+        public override string Id { get; set; }
 
         public string Username { get; set; }
 
@@ -27,9 +27,9 @@ namespace Data.Entities
 
         public int PersonalNumber { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public override string PhoneNumber { get; set; }
 
-        public string Email { get; set; }
+        public override string Email { get; set; }
 
         public RoleEnum Role { get; set; }
     }
