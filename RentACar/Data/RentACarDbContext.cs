@@ -30,6 +30,36 @@ namespace Data
             }
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Username = "user",
+                    Password = "user",
+                    FirstName = "User",
+                    LastName = "User",
+                    PersonalNumber = 0987654321,
+                    PhoneNumber = "0882750588",
+                    Email = "user@gmail.org",
+                    Role = User.RoleEnum.User
+                }
+            );
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Username = "manager",
+                    Password = "manager",
+                    FirstName = "Manager",
+                    LastName = "Manager",
+                    PersonalNumber = 0987654321,
+                    PhoneNumber = "0882750588",
+                    Email = "manager@gmail.org",
+                    Role = User.RoleEnum.Manager
+                }
+            );
+        }
+
     }
     
 }
