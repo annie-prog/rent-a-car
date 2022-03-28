@@ -25,7 +25,7 @@ namespace Data.Entities
 
         public string LastName { get; set; }
 
-        public int PersonalNumber { get; set; }
+        public string PersonalNumber { get; set; }
 
         public override string PhoneNumber { get; set; }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class RentACarDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class RentACarDbContext : DbContext
     {      
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Car> Cars { get; set; }
@@ -39,7 +39,7 @@ namespace Data
                     Password = "user",
                     FirstName = "User",
                     LastName = "User",
-                    PersonalNumber = 0987654321,
+                    PersonalNumber = "0987654321",
                     PhoneNumber = "0882750588",
                     Email = "user@gmail.org",
                     Role = User.RoleEnum.User
@@ -52,12 +52,17 @@ namespace Data
                     Password = "manager",
                     FirstName = "Manager",
                     LastName = "Manager",
-                    PersonalNumber = 0987654321,
+                    PersonalNumber = "0987654321",
                     PhoneNumber = "0882750588",
                     Email = "manager@gmail.org",
                     Role = User.RoleEnum.Manager
                 }
             );
+            modelBuilder.Entity<User>()
+               .HasIndex(user => new { user.Username, user.Password })
+               .IsUnique(true);
+            modelBuilder.Entity<Rents>().HasOne(u => u.User).WithMany().HasForeignKey(p => p.User);
+            modelBuilder.Entity<Rents>().HasOne(c => c.Car).WithMany().HasForeignKey(c => c.Car);
         }
 
     }
