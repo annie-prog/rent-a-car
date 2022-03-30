@@ -8,7 +8,6 @@ namespace Data
 {
     public class RentACarDbContext : IdentityDbContext<IdentityUser>
     {
-
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Rents> Rents { get; set; }
 
@@ -26,7 +25,7 @@ namespace Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=RentACar;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RentACar;Integrated Security=true;");
             }
         }
 
