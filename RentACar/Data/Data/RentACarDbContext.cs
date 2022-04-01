@@ -10,27 +10,47 @@ namespace Data
     {
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Rents> Rents { get; set; }
+        private UserManager<User> userManager { get; set; }
+        private RoleManager<IdentityRole> roleManager { get; set; }
 
         public RentACarDbContext()
         {
-
+            //TODO: initialize UserManager and RoleManager
         }
 
         public RentACarDbContext(DbContextOptions<RentACarDbContext> dbContextOptions) : base(dbContextOptions)
         {
-
+            //TODO: initialize UserManager and RoleManager
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RentACar;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=.;Database=RentACar;Integrated Security=true;");
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
+            string[] roles = { "Admin", "Employee" };
+
+            foreach (string role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+
+            User initialUser = new User
+            {
+                UserName = "admin",
+                PasswordHash = "admin",
+            };
+
+            modelBuilder.Entity<User>().HasData(initialUser);
+            await userManager.AddToRoleAsync(initialUser, roles[0]);
 
             //modelBuilder.Entity<User>().HasData(
             //    new User
