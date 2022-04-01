@@ -14,5 +14,7 @@ namespace Data.Entities
         public string LastName { get; set; }
 
         public string PersonalNumber { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

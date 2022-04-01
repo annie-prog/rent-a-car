@@ -48,7 +48,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -68,7 +68,7 @@ namespace API
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            CreateUserRoles(serviceProvider).Wait();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -76,6 +76,44 @@ namespace API
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private async System.Threading.Tasks.Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            string[] roleNames = { "Admin", "User"};
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                var roleCheck = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleCheck)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            var user = new User();
+            user.UserName = "admin";
+            user.Id = Guid.NewGuid().ToString();
+            user.FirstName = "Admin";
+            user.LastName = "Admin";
+            user.PersonalNumber = "1234567890";
+            user.PhoneNumber = "0888888888";
+            user.Email = "admin@admin.admin";
+            user.IsAdmin = true;
+            string userPWD = "password";
+            var _user = await UserManager.FindByNameAsync(user.UserName);
+            if (_user == null)
+            {
+                IdentityResult chkUser = await UserManager.CreateAsync(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user, "Admin");
+                }
+
+            }
+
         }
     }
 }
