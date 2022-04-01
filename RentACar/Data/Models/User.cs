@@ -15,6 +15,5 @@ namespace Data.Entities
 
         public string PersonalNumber { get; set; }
 
-        public bool IsAdmin { get; set; }
     }
 }
