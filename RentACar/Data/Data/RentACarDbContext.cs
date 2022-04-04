@@ -6,21 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class RentACarDbContext : IdentityDbContext<IdentityUser>
+    public class RentACarDbContext : IdentityDbContext<User, IdentityRole, string>
     {
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Rents> Rents { get; set; }
-        private UserManager<User> userManager { get; set; }
-        private RoleManager<IdentityRole> roleManager { get; set; }
-
-        public RentACarDbContext()
-        {
-            //TODO: initialize UserManager and RoleManager
-        }
 
         public RentACarDbContext(DbContextOptions<RentACarDbContext> dbContextOptions) : base(dbContextOptions)
         {
-            //TODO: initialize UserManager and RoleManager
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,57 +26,48 @@ namespace Data
 
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
+
+            this.Database.EnsureCreated();
             string[] roles = { "Admin", "Employee" };
 
             foreach (string role in roles)
             {
-                if (!await roleManager.RoleExistsAsync(role))
+                IdentityRole roleToCheck = await this.Roles.FirstOrDefaultAsync(roleToCheck => roleToCheck.Name == role);
+                if (roleToCheck == null)
                 {
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    //this.Roles.Add(new IdentityRole(role));
+                    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole(role));
                 }
             }
 
-            User initialUser = new User
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+
+            User initialUser = new User();
+            initialUser.Id = Guid.NewGuid().ToString();
+            initialUser.UserName = "admin";
+            initialUser.PasswordHash = passwordHasher.HashPassword(initialUser, "admin");
+
+
+            if (this.Users.FirstOrDefaultAsync() != null)
             {
-                UserName = "admin",
-                PasswordHash = "admin",
-            };
 
-            modelBuilder.Entity<User>().HasData(initialUser);
-            await userManager.AddToRoleAsync(initialUser, roles[0]);
+                modelBuilder.Entity<User>().HasData(initialUser);
+                IdentityRole<string> adminRole = await this.Roles.FirstOrDefaultAsync(role => role.Name == "Admin");
+                modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId = adminRole.Id, UserId = initialUser.Id});
+            }
 
-            //modelBuilder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        Username = "user",
-            //        Password = "user",
-            //        FirstName = "User",
-            //        LastName = "User",
-            //        PersonalNumber = "0987654321",
-            //        PhoneNumber = "0882750588",
-            //        Email = "user@gmail.org",
-            //        Role = User.RoleEnum.User
-            //    }
-            //);
-            //modelBuilder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        Username = "manager",
-            //        Password = "manager",
-            //        FirstName = "Manager",
-            //        LastName = "Manager",
-            //        PersonalNumber = "0987654321",
-            //        PhoneNumber = "0882750588",
-            //        Email = "manager@gmail.org",
-            //        Role = User.RoleEnum.Manager
-            //    }
-            //);
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>()
-               .HasIndex(user => new { user.UserName })
-               .IsUnique(true);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.User);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.Car);
+
+            modelBuilder.Entity<Car>().HasData(new Car()
+            {
+                Id = 1,
+                Brand = "Trabant"
+            }) ;
+
+            this.SaveChanges();
         }
 
     }

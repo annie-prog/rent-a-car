@@ -29,8 +29,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RentACarDbContext>(options =>
-               options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -42,7 +41,10 @@ namespace API
 
                 options.User.RequireUniqueEmail = false;
             })
+                .AddRoles<IdentityRole>()
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<RentACarDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
