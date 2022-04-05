@@ -23,16 +23,6 @@ namespace API.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            if(!this.User.Identity.IsAuthenticated)
-            {
-                return Redirect(""); 
-            }
-
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

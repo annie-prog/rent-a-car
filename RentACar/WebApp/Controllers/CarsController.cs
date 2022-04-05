@@ -21,7 +21,6 @@ namespace WebApp.Controllers
             _context = context;
         }
 
-        // GET: Cars
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cars.ToListAsync());
@@ -47,6 +46,7 @@ namespace WebApp.Controllers
 
         // GET: Cars/Create
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -69,6 +69,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Cars/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +121,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Cars/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
