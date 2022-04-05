@@ -25,6 +25,7 @@ namespace API.Controllers
 
         public IActionResult Privacy()
         {
+            
             if(!this.User.Identity.IsAuthenticated)
             {
                 return Redirect(""); 

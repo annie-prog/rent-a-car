@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    [Migration("20220404172708_Changes")]
-    partial class Changes
+    [Migration("20220405162441_Migrena1")]
+    partial class Migrena1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,6 +151,22 @@ namespace Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "87ad6f7e-0c13-418e-85bd-de8f713571df",
+                            Email = "admin@admin.admin",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDziS8oqC1HTCljBTahrcu4r2yG6Jx9UQwSqWbxyBm2tmq5aKXSnajXslwuEc2AF4Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4323b9d9-b92f-4ef3-94b1-77050d61341a",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -178,6 +194,20 @@ namespace Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed",
+                            ConcurrencyStamp = "cb148526-d897-4dfa-966f-b67b73e16be5",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = "b0aacbe6-4603-4b03-b4e7-b521491bef85",
+                            ConcurrencyStamp = "ef05edac-cedf-488c-9e99-569b0d434c10",
+                            Name = "Employee"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -263,6 +293,18 @@ namespace Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
+                            RoleId = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed"
+                        },
+                        new
+                        {
+                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
+                            RoleId = "b0aacbe6-4603-4b03-b4e7-b521491bef85"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    partial class RentACarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220405155900_Migrena")]
+    partial class Migrena
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,15 +155,14 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
+                            Id = "5ff048ba-cb37-4966-a7dd-f7b0aa96d730",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "87ad6f7e-0c13-418e-85bd-de8f713571df",
+                            ConcurrencyStamp = "bd3f3137-a505-4c21-9392-8cc07b1eac1e",
                             Email = "admin@admin.admin",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDziS8oqC1HTCljBTahrcu4r2yG6Jx9UQwSqWbxyBm2tmq5aKXSnajXslwuEc2AF4Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPi0dTNwbpnqCBmfVPUqx8rvTNgAcDNC+66x774qyxx0uJUru0hXcxozgjaFx/7MRw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4323b9d9-b92f-4ef3-94b1-77050d61341a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -196,14 +197,14 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed",
-                            ConcurrencyStamp = "cb148526-d897-4dfa-966f-b67b73e16be5",
+                            Id = "43cf6ddd-13bc-4680-9e88-21d5bb059012",
+                            ConcurrencyStamp = "4add9b33-0dd3-4301-a5bf-c22d1f6be04d",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "b0aacbe6-4603-4b03-b4e7-b521491bef85",
-                            ConcurrencyStamp = "ef05edac-cedf-488c-9e99-569b0d434c10",
+                            Id = "58aee2c2-eab0-4448-afde-440707d99128",
+                            ConcurrencyStamp = "091ef9fa-ecf1-4195-b3a3-9d1989cdbc50",
                             Name = "Employee"
                         });
                 });
@@ -295,13 +296,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
-                            RoleId = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed"
+                            UserId = "5ff048ba-cb37-4966-a7dd-f7b0aa96d730",
+                            RoleId = "43cf6ddd-13bc-4680-9e88-21d5bb059012"
                         },
                         new
                         {
-                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
-                            RoleId = "b0aacbe6-4603-4b03-b4e7-b521491bef85"
+                            UserId = "5ff048ba-cb37-4966-a7dd-f7b0aa96d730",
+                            RoleId = "58aee2c2-eab0-4448-afde-440707d99128"
                         });
                 });
 
