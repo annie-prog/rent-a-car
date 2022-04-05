@@ -43,6 +43,7 @@ namespace API
             })
                 .AddRoles<IdentityRole>()
                 .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RentACarDbContext>();
 
             services.AddControllersWithViews();

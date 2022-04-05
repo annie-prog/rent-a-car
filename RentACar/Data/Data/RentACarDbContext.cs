@@ -28,35 +28,33 @@ namespace Data
         {
 
             base.OnModelCreating(modelBuilder);
+            //string[] roles = { "Admin", "Employee" };
 
-            this.Database.EnsureCreated();
-            string[] roles = { "Admin", "Employee" };
+            //foreach (string role in roles)
+            //{
+            //    IdentityRole roleToCheck = await this.Roles.FirstOrDefaultAsync(roleToCheck => roleToCheck.Name == role);
+            //    if (roleToCheck == null)
+            //    {
+            //        //this.Roles.Add(new IdentityRole(role));
+            //        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole(role));
+            //    }
+            //}
 
-            foreach (string role in roles)
-            {
-                IdentityRole roleToCheck = await this.Roles.FirstOrDefaultAsync(roleToCheck => roleToCheck.Name == role);
-                if (roleToCheck == null)
-                {
-                    //this.Roles.Add(new IdentityRole(role));
-                    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole(role));
-                }
-            }
+            //PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
 
-            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-
-            User initialUser = new User();
-            initialUser.Id = Guid.NewGuid().ToString();
-            initialUser.UserName = "admin";
-            initialUser.PasswordHash = passwordHasher.HashPassword(initialUser, "admin");
+            //User initialUser = new User();
+            //initialUser.Id = Guid.NewGuid().ToString();
+            //initialUser.UserName = "admin";
+            //initialUser.PasswordHash = passwordHasher.HashPassword(initialUser, "admin");
 
 
-            if (this.Users.FirstOrDefaultAsync() != null)
-            {
+            //if (this.Users.FirstOrDefaultAsync() != null)
+            //{
 
-                modelBuilder.Entity<User>().HasData(initialUser);
-                IdentityRole<string> adminRole = await this.Roles.FirstOrDefaultAsync(role => role.Name == "Admin");
-                modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId = adminRole.Id, UserId = initialUser.Id});
-            }
+            //    modelBuilder.Entity<User>().HasData(initialUser);
+            //    IdentityRole<string> adminRole = await this.Roles.FirstOrDefaultAsync(role => role.Name == "Admin");
+            //    modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId = adminRole.Id, UserId = initialUser.Id});
+            //}
 
             modelBuilder.Entity<Rents>().HasOne(rents => rents.User);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.Car);
@@ -67,7 +65,6 @@ namespace Data
                 Brand = "Trabant"
             }) ;
 
-            this.SaveChanges();
         }
 
     }
