@@ -24,30 +24,8 @@ namespace Data
             }
         }
 
-        protected override async void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
-            //string[] roles = { "Admin", "Employee" };
-
-            //foreach (string role in roles)
-            //{
-            //    IdentityRole roleToCheck = await this.Roles.FirstOrDefaultAsync(roleToCheck => roleToCheck.Name == role);
-            //    if (roleToCheck == null)
-            //    {
-            //        //this.Roles.Add(new IdentityRole(role));
-            //        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole(role));
-            //    }
-            //}
-
-            //PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-
-            //User initialUser = new User();
-            //initialUser.Id = Guid.NewGuid().ToString();
-            //initialUser.UserName = "admin";
-            //initialUser.PasswordHash = passwordHasher.HashPassword(initialUser, "admin");
-
-
             //if (this.Users.FirstOrDefaultAsync() != null)
             //{
 
@@ -56,15 +34,35 @@ namespace Data
             //    modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId = adminRole.Id, UserId = initialUser.Id});
             //}
 
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+
+            User initialUser = new User()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "admin",
+                Email = "admin@admin.admin",
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            initialUser.PasswordHash = passwordHasher.HashPassword(initialUser, "admin123");
+
+            modelBuilder.Entity<User>().HasData(initialUser);
+            string[] roles = { "Admin", "Employee" };
+
+            foreach (string role in roles)
+            {
+                IdentityRole newRole = new IdentityRole(role);
+                newRole.Id = Guid.NewGuid().ToString();
+                modelBuilder.Entity<IdentityRole>().HasData(newRole);
+                IdentityUserRole<string> userRole = new IdentityUserRole<string>();
+                userRole.UserId = initialUser.Id;
+                userRole.RoleId = newRole.Id;
+                modelBuilder.Entity<IdentityUserRole<string>>().HasData(userRole);
+            }
+
             modelBuilder.Entity<Rents>().HasOne(rents => rents.User);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.Car);
 
-            modelBuilder.Entity<Car>().HasData(new Car()
-            {
-                Id = 1,
-                Brand = "Trabant"
-            }) ;
-
+            base.OnModelCreating(modelBuilder);
         }
 
     }

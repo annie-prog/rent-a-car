@@ -12,23 +12,27 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Data;
 
 namespace WebApp.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private readonly RentACarDbContext rentACarDbContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<User> signInManager, 
+        public LoginModel(RentACarDbContext dbContext,
+            SignInManager<User> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<User> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            rentACarDbContext = dbContext;
         }
 
         [BindProperty]
@@ -44,8 +48,8 @@ namespace WebApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Display(Name = "Username")]
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -82,7 +86,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(rentACarDbContext.Users.FirstOrDefault(user => user.UserName == Input.Username), Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
