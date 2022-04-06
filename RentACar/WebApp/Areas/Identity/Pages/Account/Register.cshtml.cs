@@ -65,6 +65,9 @@ namespace WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Phone")]
             public string PhoneNumber { get; set; }
 
+            [Display(Name = "Personal number")]
+            public string PersonalNumber { get; set; }
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -89,7 +92,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { Id = Guid.NewGuid().ToString(), UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, PhoneNumber = Input.PhoneNumber };
+                var user = new User { Id = Guid.NewGuid().ToString(), UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, PhoneNumber = Input.PhoneNumber, PersonalNumber = Input.PersonalNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
