@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Areas.Identity.Pages.Account
 {
@@ -56,12 +57,13 @@ namespace WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Display(Name = "First Name")]
+            [Display(Name = "First name")]
             public string FirstName { get; set; }
 
-            [Display(Name = "Last Name")]
+            [Display(Name = "Last name")]
             public string LastName { get; set; }
 
+            [Phone]
             [Display(Name = "Phone")]
             public string PhoneNumber { get; set; }
 

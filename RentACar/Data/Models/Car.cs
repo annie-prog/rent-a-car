@@ -9,6 +9,7 @@ namespace Data.Entities
 {
     public class Car
     {
+        [Required]
         public int Id { get; set; }
 
         [Required]
