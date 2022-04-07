@@ -27,6 +27,7 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountPassengerSeats")
@@ -36,6 +37,7 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PriceForDay")
@@ -153,15 +155,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
+                            Id = "8fb80b37-172b-4100-b499-cfa8b8bd225f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "87ad6f7e-0c13-418e-85bd-de8f713571df",
+                            ConcurrencyStamp = "863ef77f-ca57-4cdc-8a69-2034d137775e",
                             Email = "admin@admin.admin",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDziS8oqC1HTCljBTahrcu4r2yG6Jx9UQwSqWbxyBm2tmq5aKXSnajXslwuEc2AF4Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA2HtcFcKoyTZ8qyX/ACxeWR3uxNREHn09A1/5s+c2wzkUUOThsWUqEiv7Rn3vmgJQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4323b9d9-b92f-4ef3-94b1-77050d61341a",
+                            SecurityStamp = "670d518e-9966-41bb-ae76-3a8968513497",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -196,14 +198,14 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed",
-                            ConcurrencyStamp = "cb148526-d897-4dfa-966f-b67b73e16be5",
+                            Id = "6d92895f-aab5-46b6-8650-0d8c1b566372",
+                            ConcurrencyStamp = "372dca25-7ccc-4995-9b3f-32bfdebc1ff6",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "b0aacbe6-4603-4b03-b4e7-b521491bef85",
-                            ConcurrencyStamp = "ef05edac-cedf-488c-9e99-569b0d434c10",
+                            Id = "b57865e0-539e-4f79-8215-103e22016c83",
+                            ConcurrencyStamp = "97e7c5da-d35b-475b-85cd-f5df914e5850",
                             Name = "Employee"
                         });
                 });
@@ -295,13 +297,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
-                            RoleId = "0387a4dd-4a2a-4119-b7c9-5d5e7c16b0ed"
+                            UserId = "8fb80b37-172b-4100-b499-cfa8b8bd225f",
+                            RoleId = "6d92895f-aab5-46b6-8650-0d8c1b566372"
                         },
                         new
                         {
-                            UserId = "b482663b-78bc-4b6a-81a6-75d52d87bbb1",
-                            RoleId = "b0aacbe6-4603-4b03-b4e7-b521491bef85"
+                            UserId = "8fb80b37-172b-4100-b499-cfa8b8bd225f",
+                            RoleId = "b57865e0-539e-4f79-8215-103e22016c83"
                         });
                 });
 

@@ -44,7 +44,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Rents/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             return View();
         }
@@ -58,6 +58,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var car = _context.Cars.FirstOrDefault(car => car.Id == 1);
+                rents.Car = car;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

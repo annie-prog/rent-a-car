@@ -32,7 +32,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PriceForDay)
             </th>
-            <th></th>
+            <th>
+                Select
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -56,6 +58,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PriceForDay)
+            </td>
+            <td>
+                <a asp-controller="Rents" asp-action="Create">Select</a>
             </td>
             @if (this.User.IsInRole("Admin"))
             {
