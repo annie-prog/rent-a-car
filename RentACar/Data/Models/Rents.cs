@@ -13,16 +13,14 @@ namespace Data.Entities
     {
         public int Id { get; set; }
         [Required]
-        [ForeignKey("Car")]
-        public int CarId { get; set; }
-        public virtual Car Car { get; set; }
+        [ForeignKey("CarId")]
+        public Car Car { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
  
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }

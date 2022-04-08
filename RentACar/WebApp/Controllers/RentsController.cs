@@ -60,11 +60,11 @@ namespace WebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create([Bind("Id,Car.Id,StartDate,EndDate,UserId")] Rents rents)
+        public async Task<IActionResult> Create([Bind("Id,CarId,StartDate,EndDate,UserId")] Rents rents)
         {
             if (ModelState.IsValid)
             {
-                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.Car.Id);
+                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.CarId);
                 rents.Car = car;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
