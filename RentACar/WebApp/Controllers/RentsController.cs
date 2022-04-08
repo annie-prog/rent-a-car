@@ -54,6 +54,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("Id,CarId,StartDate,EndDate,UserId")] Rents rents)
         {
             if (ModelState.IsValid)

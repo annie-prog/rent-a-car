@@ -79,6 +79,7 @@ namespace API
                 endpoints.MapRazorPages();
             });
 
+
         }
     }
 }

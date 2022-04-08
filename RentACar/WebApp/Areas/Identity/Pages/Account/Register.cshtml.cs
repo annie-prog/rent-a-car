@@ -65,6 +65,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
+            [Phone]
             [Display(Name = "Phone")]
             public string PhoneNumber { get; set; }
 
@@ -81,6 +82,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -99,9 +101,6 @@ namespace WebApp.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var defaultrole = _roleManager.FindByIdAsync("d3aa27bb-2866-4a7d-9f0d-30498859ae94").Result;
-
-                    await _userManager.AddToRoleAsync(user, defaultrole.Name);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -124,6 +123,7 @@ namespace WebApp.Areas.Identity.Pages.Account
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+
                 }
                 foreach (var error in result.Errors)
                 {

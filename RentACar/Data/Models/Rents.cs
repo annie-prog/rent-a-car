@@ -20,6 +20,7 @@ namespace Data.Entities
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
+ 
         [ForeignKey("User")]
         public string UserId { get; set; }
         public virtual User User { get; set; }

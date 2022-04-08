@@ -27,6 +27,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Cars/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,7 +44,7 @@ namespace WebApp.Controllers
 
             return View(car);
         }
-
+        
         // GET: Cars/Create
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -57,6 +58,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("Id, Brand, Model, Year, CountPassengerSeats, Description, PriceForDay")] Car car)
         {
             if (ModelState.IsValid)
