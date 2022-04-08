@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(RentACarDbContext))]
-    [Migration("20220408204254_initial")]
+    [Migration("20220408211811_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,6 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountPassengerSeats")
@@ -39,7 +38,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PriceForDay")
@@ -158,15 +156,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "90eb7ea0-1453-414e-bd62-1598743235f9",
+                            Id = "28c75ddc-f972-4532-be46-adae03df32fb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2d3a925b-5e08-49ee-ad6d-0478d5f3835d",
+                            ConcurrencyStamp = "33c93ad2-8f61-4e3c-8d61-1583ea02a347",
                             Email = "admin@admin.admin",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAED+NUmnyTAFii5q3rHXmsdJw3qQB6PZGujYBjKMXKm8Vgh/9YINv1bWutfkY010xvQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMzxMVddhY+nvlkkmN6QRcuyj3Vh4iVvZ9xMarXBCh1APRAhWUU90mP4SOf0qS3A8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36eacd85-50f6-4f93-928e-d5b7b53d4dfa",
+                            SecurityStamp = "f548cc6f-ef08-4714-9c7a-e4e660cdced3",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -201,14 +199,14 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ea075722-31b3-4f87-9306-05a2b3955385",
-                            ConcurrencyStamp = "75739597-d83b-4934-8676-ac31019c2a65",
+                            Id = "14ca6e11-5721-43c8-a170-b74dbd8dd7f8",
+                            ConcurrencyStamp = "18c88b14-89fd-4563-927c-23ed1da3d868",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "fed57231-c916-4cd0-9eed-7a2dee121d2d",
-                            ConcurrencyStamp = "96013243-e917-4ffc-a6a7-b1e3a7eb5f7e",
+                            Id = "b79e8165-7e4a-409f-8d27-455dd03ca398",
+                            ConcurrencyStamp = "32443d24-2ba0-4d21-90f4-40971854864c",
                             Name = "Employee"
                         });
                 });
@@ -300,13 +298,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "90eb7ea0-1453-414e-bd62-1598743235f9",
-                            RoleId = "ea075722-31b3-4f87-9306-05a2b3955385"
+                            UserId = "28c75ddc-f972-4532-be46-adae03df32fb",
+                            RoleId = "14ca6e11-5721-43c8-a170-b74dbd8dd7f8"
                         },
                         new
                         {
-                            UserId = "90eb7ea0-1453-414e-bd62-1598743235f9",
-                            RoleId = "fed57231-c916-4cd0-9eed-7a2dee121d2d"
+                            UserId = "28c75ddc-f972-4532-be46-adae03df32fb",
+                            RoleId = "b79e8165-7e4a-409f-8d27-455dd03ca398"
                         });
                 });
 
