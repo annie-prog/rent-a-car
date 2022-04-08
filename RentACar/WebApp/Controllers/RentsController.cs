@@ -59,12 +59,14 @@ namespace WebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("CarId,StartDate,EndDate")] Rents rents)
+        public async Task<IActionResult> Create(Rents rents)
         {
             if (ModelState.IsValid)
             {
                 var car = _context.Cars.FirstOrDefault(car => car.Id == 1);
                 rents.Car = car;
+                var user = _context.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
+                rents.User = user;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -95,13 +97,8 @@ namespace WebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,StartDate,EndDate")] Rents rents)
+        public async Task<IActionResult> Edit(Rents rents)
         {
-            if (id != rents.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
