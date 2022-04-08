@@ -64,7 +64,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.CarId);
+                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.Car.Id);
                 rents.Car = car;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
