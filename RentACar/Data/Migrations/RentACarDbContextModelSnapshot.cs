@@ -68,6 +68,7 @@ namespace Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -155,15 +156,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6672fb82-eac5-434e-bfb3-b006250c3c70",
+                            Id = "90eb7ea0-1453-414e-bd62-1598743235f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "73ea1656-0fe7-4798-8c49-2bf075752f0d",
+                            ConcurrencyStamp = "2d3a925b-5e08-49ee-ad6d-0478d5f3835d",
                             Email = "admin@admin.admin",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEF1qZnzmOwaxX7gg8131im6Fsf15IdhzXMNGdGdZ2/A44dccfIebf3/ogztSjIxDYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED+NUmnyTAFii5q3rHXmsdJw3qQB6PZGujYBjKMXKm8Vgh/9YINv1bWutfkY010xvQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7c3cfc39-00b4-45e4-a0ab-4fed3c22bf61",
+                            SecurityStamp = "36eacd85-50f6-4f93-928e-d5b7b53d4dfa",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -198,14 +199,14 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "616b0c38-7885-4bbb-ba58-eb9ffd670331",
-                            ConcurrencyStamp = "fc82a4fb-c5d8-4c95-963f-8332e6896085",
+                            Id = "ea075722-31b3-4f87-9306-05a2b3955385",
+                            ConcurrencyStamp = "75739597-d83b-4934-8676-ac31019c2a65",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "2ebdf39c-05b9-41f5-a505-4dab3788136f",
-                            ConcurrencyStamp = "5638a11d-92a1-46bd-9d05-d43cae4eee4e",
+                            Id = "fed57231-c916-4cd0-9eed-7a2dee121d2d",
+                            ConcurrencyStamp = "96013243-e917-4ffc-a6a7-b1e3a7eb5f7e",
                             Name = "Employee"
                         });
                 });
@@ -297,13 +298,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6672fb82-eac5-434e-bfb3-b006250c3c70",
-                            RoleId = "616b0c38-7885-4bbb-ba58-eb9ffd670331"
+                            UserId = "90eb7ea0-1453-414e-bd62-1598743235f9",
+                            RoleId = "ea075722-31b3-4f87-9306-05a2b3955385"
                         },
                         new
                         {
-                            UserId = "6672fb82-eac5-434e-bfb3-b006250c3c70",
-                            RoleId = "2ebdf39c-05b9-41f5-a505-4dab3788136f"
+                            UserId = "90eb7ea0-1453-414e-bd62-1598743235f9",
+                            RoleId = "fed57231-c916-4cd0-9eed-7a2dee121d2d"
                         });
                 });
 
@@ -336,7 +337,9 @@ namespace Data.Migrations
 
                     b.HasOne("Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
 

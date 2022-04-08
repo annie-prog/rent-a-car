@@ -22,7 +22,9 @@ namespace Data.Entities
         [Required]
         public DateTime EndDate { get; set; }
  
+        [Required]
         [ForeignKey("UserId")]
         public User User { get; set; }
+
     }
 }

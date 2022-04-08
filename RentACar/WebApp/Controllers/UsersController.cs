@@ -171,7 +171,7 @@ namespace WebApp.Controllers
         }
         // GET: Users/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(string? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
