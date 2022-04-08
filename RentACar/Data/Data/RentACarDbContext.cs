@@ -20,7 +20,7 @@ namespace Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=RentACar;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=.;Database=RentACar;Integrated Security=true;");
             }
         }
 

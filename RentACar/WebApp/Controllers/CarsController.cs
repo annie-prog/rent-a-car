@@ -70,6 +70,7 @@ namespace WebApp.Controllers
 
         // GET: Cars/Edit/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +91,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id, Brand, Model, Year, CountPassengerSeats, Description, PriceForDay")] Car car)
         {
             if (id != car.Id)
@@ -122,6 +124,7 @@ namespace WebApp.Controllers
 
         // GET: Cars/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
