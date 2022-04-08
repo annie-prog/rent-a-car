@@ -39,7 +39,7 @@ namespace API
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = true;
 
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             })
                 .AddRoles<IdentityRole>()
                 .AddDefaultUI()
@@ -78,6 +78,7 @@ namespace API
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
         }
     }
 }

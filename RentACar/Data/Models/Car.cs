@@ -10,6 +10,7 @@ namespace Data.Entities
     public class Car
     {
         [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required]
