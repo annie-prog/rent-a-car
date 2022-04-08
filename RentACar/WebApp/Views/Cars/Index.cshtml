@@ -11,7 +11,7 @@
         <a type="button" class="btn btn-primary" asp-action="Create">Add new car</a>
     }
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -35,9 +35,12 @@
             <th>
                 Daily price
             </th>
-            <th>
-                Actions
-            </th>
+            @if (this.User.IsInRole("Admin"))
+            {
+                <th>
+                    Actions
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
