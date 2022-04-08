@@ -12,9 +12,11 @@ namespace Data.Entities
     public class Rents
     {
         public int Id { get; set; }
+
         [Required]
         [ForeignKey("CarId")]
         public Car Car { get; set; }
+
         [Required]
         public DateTime StartDate { get; set; }
         [Required]
