@@ -1,19 +1,16 @@
 ﻿@model Data.Entities.Rents
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "DateSelect";
 }
 
-<h1>Create rent</h1>
-<hr />
+
+<h1>Rent a car</h1>
+<h2>Select dates</h2>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div class="form-group">
-                <label asp-for="Car.Id" class="control-label"></label>
-                <input asp-for="Car.Id" class="form-control" />
-                <span asp-validation-for="Car.Id" class="text-danger"></span>
-            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
@@ -26,17 +23,11 @@
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Findiew" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

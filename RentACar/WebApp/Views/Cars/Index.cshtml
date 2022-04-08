@@ -4,19 +4,18 @@
     ViewData["Title"] = "Cars";
 }
 
-<h1>Vehicle</h1>
-<h2>Available cars</h2>
+<h1>Vehicles</h1>
 <p>
     @if (this.User.IsInRole("Admin"))
     {
-        <a asp-action="Create">Create car</a>
+        <a type="button" class="btn btn-primary" asp-action="Create">Add new car</a>
     }
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                ID
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Brand)
@@ -28,16 +27,16 @@
                 @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CountPassengerSeats)
+                Seats
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PriceForDay)
+                Daily price
             </th>
             <th>
-                Select
+                Actions
             </th>
         </tr>
     </thead>
@@ -65,9 +64,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PriceForDay)
-                </td>
-                <td>
-                    <a asp-controller="Rents" asp-action="Create" >Select</a>
                 </td>
                 @if (this.User.IsInRole("Admin"))
                 {

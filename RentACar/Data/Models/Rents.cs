@@ -14,7 +14,6 @@ namespace Data.Entities
         public int Id { get; set; }
         [Required]
         [ForeignKey("Car")]
-        public int CarId { get; set; }
         public virtual Car Car { get; set; }
         [Required]
         public DateTime StartDate { get; set; }

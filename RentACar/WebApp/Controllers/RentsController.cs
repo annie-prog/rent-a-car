@@ -42,6 +42,11 @@ namespace WebApp.Controllers
 
             return View(rents);
         }
+        public async Task<IActionResult> DateSelect(DateTime startDate, DateTime endDate)
+        {
+
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Rents/Create
         public IActionResult Create(int id)
@@ -55,11 +60,11 @@ namespace WebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create([Bind("Id,CarId,StartDate,EndDate,UserId")] Rents rents)
+        public async Task<IActionResult> Create([Bind("Id,Car.Id,StartDate,EndDate,UserId")] Rents rents)
         {
             if (ModelState.IsValid)
             {
-                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.CarId);
+                var car = _context.Cars.FirstOrDefault(car => car.Id == rents.Car.Id);
                 rents.Car = car;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
@@ -151,6 +156,19 @@ namespace WebApp.Controllers
         private bool RentsExists(int id)
         {
             return _context.Rents.Any(e => e.Id == id);
+        }
+        public bool CarIsAvailable(int carId, DateTime startDate, DateTime endDate)
+        {
+            var rents = _context.Rents.Where(x => x.Car.Id == carId);
+            if (rents != null)
+            {
+                foreach (var item in rents)
+                {
+                    return !(item.StartDate < endDate && startDate < item.EndDate);
+                }
+                return false;
+            }
+            else return true;
         }
     }
 }
