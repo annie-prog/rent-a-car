@@ -42,7 +42,7 @@ namespace WebApp.Controllers
 
             return View(rents);
         }
-        public async Task<IActionResult> DateSelect(DateTime startDate, DateTime endDate)
+        public IActionResult DateSelect(DateTime startDate, DateTime endDate)
         {
 
             return RedirectToAction(nameof(Index));
