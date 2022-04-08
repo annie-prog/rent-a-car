@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
@@ -20,12 +21,14 @@ namespace WebApp.Controllers
         }
 
         // GET: Rents
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Rents.ToListAsync());
         }
 
         // GET: Rents/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,13 +45,9 @@ namespace WebApp.Controllers
 
             return View(rents);
         }
-        public IActionResult DateSelect(DateTime startDate, DateTime endDate)
-        {
-
-            return RedirectToAction(nameof(Index));
-        }
 
         // GET: Rents/Create
+        [Authorize]
         public IActionResult Create(int id)
         {
             return View();
@@ -59,13 +58,15 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Create([Bind("Id,Car.Id,StartDate,EndDate,UserId")] Rents rents)
+        [Authorize]
+        public async Task<IActionResult> Create([Bind("Id,Car.Id,StartDate,EndDate,User.Id")] Rents rents)
         {
             if (ModelState.IsValid)
             {
                 var car = _context.Cars.FirstOrDefault(car => car.Id == rents.Car.Id);
                 rents.Car = car;
+                var user = _context.Users.FirstOrDefault(user => user.Id == rents.User.Id);
+                rents.User = user;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -74,6 +75,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Rents/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,6 +96,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CarId,StartDate,EndDate,UserId")] Rents rents)
         {
             if (id != rents.Id)
@@ -125,6 +128,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Rents/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,6 +149,7 @@ namespace WebApp.Controllers
         // POST: Rents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rents = await _context.Rents.FindAsync(id);

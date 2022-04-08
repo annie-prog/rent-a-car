@@ -11,11 +11,12 @@
         {
             <a type="button" class="btn btn-primary" asp-area="" asp-controller="Cars" asp-action="Index">Manage cars</a>
             <a type="button" class="btn btn-primary" asp-area="" asp-controller="Rents" asp-action="Index">Manage rents</a>
+            <a type="button" class="btn btn-primary" asp-area="" asp-controller="Users" asp-action="Index">Manage users</a>
         }
         else
         {
             <a type="button" class="btn btn-primary" asp-area="" asp-controller="Cars" asp-action="Index">See all cars</a>
-            <a type="button" class="btn btn-primary" asp-area="" asp-controller="Rents" asp-action="Index">Rent a car</a>
+            <a type="button" class="btn btn-primary" asp-area="" asp-controller="Rents" asp-action="Create">Rent a car</a>
         }
     }
     else

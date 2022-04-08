@@ -20,14 +20,14 @@ namespace WebApp.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cars.ToListAsync());
         }
 
         // GET: Cars/Details/5
-        
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,7 +58,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id, Brand, Model, Year, CountPassengerSeats, Description, PriceForDay")] Car car)
         {
             if (ModelState.IsValid)
@@ -147,6 +147,7 @@ namespace WebApp.Controllers
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var car = await _context.Cars.FindAsync(id);
