@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace WebApp.Controllers
 {
@@ -61,15 +62,27 @@ namespace WebApp.Controllers
         [Authorize]
         public async Task<IActionResult> Create(Rents rents)
         {
-            
             if (ModelState.IsValid)
             {
-                var car = _context.Cars.FirstOrDefault(car => car.Id == 1);
-                rents.Car = car;
-                var user = _context.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
-                rents.User = user;
-                _context.Add(rents);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    if (CarIsAvailable(rents.CarId, rents.StartDate, rents.EndDate))
+                    {
+                        var car = _context.Cars.FirstOrDefault(car => car.Id == rents.CarId);
+                        rents.Car = car;
+                        var user = _context.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
+                        rents.User = user;
+                        _context.Add(rents);
+                    }
+                    else throw new ArgumentOutOfRangeException("Selected car is unavailable at the chosen times.");
+                    await _context.SaveChangesAsync();
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    byte[] data = Encoding.UTF8.GetBytes(e.ParamName + " <a href=\"javascript:history.back()\">Back</a>");
+                    Response.ContentType = "text/html";
+                    await Response.Body.WriteAsync(data, 0, data.Length);
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(rents);
@@ -104,8 +117,12 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(rents);
-                    await _context.SaveChangesAsync();
+                    if (CarIsAvailable(rents.CarId, rents.StartDate, rents.EndDate))
+                    {
+                        _context.Update(rents);
+                        await _context.SaveChangesAsync();
+                    }
+                    else throw new ArgumentOutOfRangeException("Selected car is unavailable at the chosen times.");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,6 +134,12 @@ namespace WebApp.Controllers
                     {
                         throw;
                     }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    byte[] data = Encoding.UTF8.GetBytes(ex.ParamName + " <a href=\"javascript:history.back()\">Back</a>");
+                    Response.ContentType = "text/html";
+                    await Response.Body.WriteAsync(data, 0, data.Length);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -160,16 +183,22 @@ namespace WebApp.Controllers
         }
         public bool CarIsAvailable(int carId, DateTime startDate, DateTime endDate)
         {
-            var rents = _context.Rents.Where(x => x.Car.Id == carId);
-            if (rents != null)
+            var rents = _context.Rents.Where(x => x.CarId == carId);
+            foreach (var item in rents)
             {
-                foreach (var item in rents)
+                if (item.StartDate > item.EndDate)
+                    throw new ArgumentException("A start can not be after its end.");
+
+                if (startDate > endDate)
+                    throw new ArgumentException("B start can not be after its end.");
+
+                if (!((item.EndDate < startDate && item.StartDate < startDate) ||
+                            (endDate < item.StartDate && startDate < item.StartDate)))
                 {
-                    return !(item.StartDate < endDate && startDate < item.EndDate);
+                    return false;
                 }
-                return false;
             }
-            else return true;
+            return true;
         }
     }
 }
