@@ -74,12 +74,12 @@ namespace WebApp.Controllers
                         rents.User = user;
                         _context.Add(rents);
                     }
-                    else throw new ArgumentOutOfRangeException("Selected car is unavailable at the chosen times.");
+                    else throw new ArgumentException("Selected car is unavailable at the chosen times.");
                     await _context.SaveChangesAsync();
                 }
-                catch (ArgumentOutOfRangeException e)
+                catch (ArgumentException e)
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(e.ParamName + " <a href=\"javascript:history.back()\">Back</a>");
+                    byte[] data = Encoding.UTF8.GetBytes(e.Message + " <a href=\"javascript:history.back()\">Back</a>");
                     Response.ContentType = "text/html";
                     await Response.Body.WriteAsync(data, 0, data.Length);
                 }
@@ -122,7 +122,7 @@ namespace WebApp.Controllers
                         _context.Update(rents);
                         await _context.SaveChangesAsync();
                     }
-                    else throw new ArgumentOutOfRangeException("Selected car is unavailable at the chosen times.");
+                    else throw new ArgumentException("Selected car is unavailable at the chosen times.");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -135,9 +135,9 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentException ex)
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(ex.ParamName + " <a href=\"javascript:history.back()\">Back</a>");
+                    byte[] data = Encoding.UTF8.GetBytes(ex.Message + " <a href=\"javascript:history.back()\">Back</a>");
                     Response.ContentType = "text/html";
                     await Response.Body.WriteAsync(data, 0, data.Length);
                 }
