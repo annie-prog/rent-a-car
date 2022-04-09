@@ -15,16 +15,16 @@
         <thead>
             <tr>
                 <th>
-                    Car ID
+                    @Html.DisplayNameFor(model => model.Car.Id)
                 </th>
                 <th>
-                    Start Date
+                    @Html.DisplayNameFor(model => model.StartDate)
                 </th>
                 <th>
-                    End Date
+                    @Html.DisplayNameFor(model => model.EndDate)
                 </th>
                 <th>
-                    User
+                    @Html.DisplayNameFor(model => model.User.UserName)
                 </th>
                 @if (this.User.IsInRole("Admin"))
                 {
@@ -37,28 +37,28 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Car.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                @if (this.User.IsInRole("Admin"))
-                {
+                <tr>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        @Html.DisplayFor(modelItem => item.Car.Id)
                     </td>
-                }
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    }
+                </tr>
             }
         </tbody>
     </table>

@@ -12,19 +12,19 @@ namespace Data.Entities
     public class Rents
     {
         public int Id { get; set; }
-
-        [Required]
         [ForeignKey("CarId")]
-        public Car Car { get; set; }
+        public int CarId { get; set; }
+        public virtual Car Car { get; set; }
 
         [Required]
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
         [Required]
+        [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
- 
-        [Required]
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                ID
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Brand)
@@ -27,13 +27,13 @@
                 @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-                Seats
+                @Html.DisplayNameFor(model => model.CountPassengerSeats)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                Daily price
+                @Html.DisplayNameFor(model => model.PriceForDay)
             </th>
             @if (this.User.IsInRole("Admin"))
             {

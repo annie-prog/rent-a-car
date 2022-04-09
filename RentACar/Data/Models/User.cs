@@ -11,10 +11,11 @@ namespace Data.Entities
 {
     public class User : IdentityUser<string>
     {
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
+        [Display(Name = "ID Number")]
         public string PersonalNumber { get; set; }
 
     }

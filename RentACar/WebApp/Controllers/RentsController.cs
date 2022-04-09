@@ -61,6 +61,7 @@ namespace WebApp.Controllers
         [Authorize]
         public async Task<IActionResult> Create(Rents rents)
         {
+            
             if (ModelState.IsValid)
             {
                 var car = _context.Cars.FirstOrDefault(car => car.Id == 1);

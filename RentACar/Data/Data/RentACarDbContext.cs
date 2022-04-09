@@ -20,7 +20,7 @@ namespace Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=RentACar;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=RentACar;Integrated Security=true;").UseLazyLoadingProxies();
             }
         }
 
@@ -63,7 +63,6 @@ namespace Data
             modelBuilder.Entity<Car>().HasKey(car => car.Id);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.User);
             modelBuilder.Entity<Rents>().HasOne(rents => rents.Car);
-
             base.OnModelCreating(modelBuilder);
         }
 
